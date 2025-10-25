@@ -7,7 +7,7 @@ on:
          
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: sam-runner
 
     steps: 
       - name: Checkout Code
