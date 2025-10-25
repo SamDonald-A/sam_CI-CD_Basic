@@ -26,14 +26,14 @@ jobs:
      - name: Copy files to /var/www/html
        uses: appleboy/ssh-action@v1
        with:
-        host: ${{ secrets.EC2_HOST }}
-        username: ${{ secrets.EC2_USERNAME }}
-        key: ${{ secrets.EC2_SSH_KEY }}
-        port: 22
-        script: 
-          ls -al
-          whoami
-          pwd
-          sudo cp -r * /var/www/html
-          sudo systemctl restart nginx
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          port: 22
+          script: 
+            ls -al
+            whoami
+            pwd
+            sudo cp -r * /var/www/html
+            sudo systemctl restart nginx
       
