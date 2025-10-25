@@ -7,7 +7,7 @@ on:
          
 jobs:
   deploy:
-    runs-on: [self-hosted, Linux, X64]
+    runs-on: sam-runner
 
     steps: 
       - name: Checkout Code
