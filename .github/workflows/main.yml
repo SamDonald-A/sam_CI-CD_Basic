@@ -6,34 +6,34 @@ on:
       - main
          
 jobs:
-   deploy:
-     runs-on: ubuntu-latest
+  deploy:
+    runs-on: ubuntu-latest
 
-     steps: 
-     - name: Checkout Code
-       uses: actions/checkout@v5
+    steps: 
+      - name: Checkout Code
+        uses: actions/checkout@v5
 
-     - name: Copy Code to EC2
-       uses: appleboy/scp-action@v1
-       with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USERNAME }}
-          password: ${{ secrets.EC2_SSH_KEY }}
-          port: 22
-          source: ./
-          target: ./
-
-     - name: Copy files to /var/www/html
-       uses: appleboy/ssh-action@v1
-       with:
+      - name: Copy Code to EC2
+        uses: appleboy/scp-action@v1
+        with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
-          script: 
+          source: ./
+          target: ~/app
+
+      - name: Deploy on EC2
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          port: 22
+          script: |
+            cd ~/app
             ls -al
-            whoami
-            pwd
-            sudo cp -r * /var/www/html
+            sudo cp -r * /var/www/html/
             sudo systemctl restart nginx
+
       
